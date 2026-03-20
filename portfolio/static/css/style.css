@@ -10,6 +10,8 @@
     --glass: rgba(24, 25, 34, 0.4);
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
+    --text-main: #ffffff;
+    --secondary: #a855f7;
 }
 
 html {
@@ -31,6 +33,7 @@ body {
     overflow-x: hidden;
     position: relative;
     z-index: 1;
+    cursor: auto !important;
 }
 
 a, button, .exp-pill, .logo {

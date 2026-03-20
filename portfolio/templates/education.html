@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 4rem;">
+    <div class="container text-center">
+        <span class="badge">Education</span>
+        <h2>Academic Background</h2>
+        <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">The foundational learning and formal training that shape my analytical capabilities.</p>
+
+        <div class="experience-list" style="text-align: left;">
+            {% for edu in education_list %}
+            <div class="exp-card">
+                <div class="exp-meta">
+                    <span style="font-size: 1.1rem;">{{ edu.institution }}</span>
+                    <span>{{ edu.duration }}</span>
+                </div>
+                <h3 class="exp-role">{{ edu.degree }}</h3>
+                <p>{{ edu.description|linebreaksbr }}</p>
+            </div>
+            {% empty %}
+            <div class="card" style="text-align: center;">
+                <p>Education history incoming. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

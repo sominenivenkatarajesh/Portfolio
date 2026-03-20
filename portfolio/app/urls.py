@@ -1,0 +1,40 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('projects/', views.projects, name='projects'),
+    path('internships/', views.internships, name='internships'),
+    path('education/', views.education, name='education'),
+    path('certifications/', views.certifications, name='certifications'),
+    path('achievements/', views.achievements, name='achievements'),
+    path('skills/', views.skills, name='skills'),
+    path('contact/', views.contact, name='contact'),
+    path('logout/', views.user_logout, name='logout'),
+    
+    # Admin Dashboard
+    path('admin/', views.dashboard, name='dashboard'),
+    path('admin/project/add/', views.project_create, name='project_add'),
+    path('admin/project/<int:pk>/edit/', views.project_update, name='project_edit'),
+    path('admin/project/<int:pk>/delete/', views.project_delete, name='project_delete'),
+    path('admin/skill/add/', views.skill_create, name='skill_add'),
+    path('admin/skill/<int:pk>/edit/', views.skill_update, name='skill_edit'),
+    path('admin/skill/<int:pk>/delete/', views.skill_delete, name='skill_delete'),
+    path('admin/internship/add/', views.internship_create, name='internship_add'),
+    path('admin/internship/<int:pk>/edit/', views.internship_update, name='internship_edit'),
+    path('admin/internship/<int:pk>/delete/', views.internship_delete, name='internship_delete'),
+    path('admin/training/add/', views.training_create, name='training_add'),
+    path('admin/training/<int:pk>/edit/', views.training_update, name='training_edit'),
+    path('admin/training/<int:pk>/delete/', views.training_delete, name='training_delete'),
+    path('admin/education/add/', views.education_create, name='education_add'),
+    path('admin/education/<int:pk>/edit/', views.education_update, name='education_edit'),
+    path('admin/education/<int:pk>/delete/', views.education_delete, name='education_delete'),
+    path('admin/certification/add/', views.certification_create, name='certification_add'),
+    path('admin/certification/<int:pk>/edit/', views.certification_update, name='certification_edit'),
+    path('admin/certification/<int:pk>/delete/', views.certification_delete, name='certification_delete'),
+    path('admin/achievement/add/', views.achievement_create, name='achievement_add'),
+    path('admin/achievement/<int:pk>/edit/', views.achievement_update, name='achievement_edit'),
+    path('admin/achievement/<int:pk>/delete/', views.achievement_delete, name='achievement_delete'),
+    path('admin/contact/<int:pk>/delete/', views.contact_delete, name='contact_delete'),
+]

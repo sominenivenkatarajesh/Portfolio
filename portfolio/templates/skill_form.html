@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section style="padding-top: 4rem;">
+    <div class="container text-center">
+        <span class="badge">Skill</span>
+        <h2>{{ title }}</h2>
+
+        <div class="form-container" style="margin-top: 3rem;">
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="input-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <label style="margin: 0;">{{ field.label }}</label>
+                        {% if field.name == 'date' %}
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">(Newer entries appear first)</span>
+                        {% endif %}
+                    </div>
+                    {{ field }}
+                    {% if field.help_text %}
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                    <div style="color: #ef4444; font-size: 0.85rem; margin-top: 0.5rem;">{{ field.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Changes</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary"
+                        style="flex: 1; text-align: center;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

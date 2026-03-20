@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 10rem;">
+    <div class="container text-center">
+        <span class="badge">Achievements</span>
+        <h2>Honors & Awards</h2>
+        <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">Key milestones and recognitions that highlight my dedication to continuous growth and excellence.</p>
+
+        <div class="grid-3" style="text-align: left; margin-top: 4rem;">
+            {% for ach in achievement_list %}
+            <div class="ach-card">
+                <div class="ach-icon-box">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                
+                {% if ach.date %}
+                <div class="ach-date-badge">{{ ach.date|date:"M Y" }}</div>
+                {% endif %}
+                
+                <h3 class="ach-title">{{ ach.title }}</h3>
+                <p class="ach-desc">{{ ach.description|linebreaksbr }}</p>
+            </div>
+            {% empty %}
+            <div class="card" style="text-align: center; grid-column: 1 / -1;">
+                <p>Achievements incoming. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

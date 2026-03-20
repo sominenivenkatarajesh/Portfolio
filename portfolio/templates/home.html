@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero" style="min-height: 90vh; display: flex; align-items: center; padding-top: 5rem; position: relative; overflow: visible;">
+    <div class="container"
+        style="display: flex; align-items: center; justify-content: space-between; gap: 4rem; text-align: left; flex-wrap: wrap-reverse;">
+        <div class="hero-content" style="flex: 1.5; min-width: 320px;">
+            <span class="badge" style="margin-bottom: 1rem;">Portfolio</span>
+            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
+                <span class="text-gradient"
+                    style="font-size: 0.5em; display: block; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Hello,
+                    I'm</span>
+                <span class="text-gradient-primary">{{ name }}</span>
+            </h1>
+            <p style="font-size: 1.15rem; margin: 0 0 2.5rem; max-width: 90%; line-height: 1.7;">{{ role }} dedicated to
+                building high-performance, elegant, and user-centric web applications.</p>
+            <div class="hero-btns" style="justify-content: flex-start;">
+                <a href="{% url 'contact' %}" class="btn btn-primary" style="padding: 0.8rem 2rem;">Connect</a>
+                <a href="{% static 'resume/resume.pdf' %}" class="btn btn-secondary" style="padding: 0.8rem 2rem;"
+                    download>
+                    <i class="fas fa-download" style="margin-right: 8px;"></i> Download CV
+                </a>
+            </div>
+        </div>
+        <div class="hero-image" style="flex: 1; display: flex; justify-content: center; min-width: 300px;">
+            <div
+                style="position: relative; width: 320px; height: 380px; border-radius: 30px; background: linear-gradient(135deg, var(--surface) 0%, rgba(99, 102, 241, 0.2) 100%); padding: 1px; box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 40px rgba(99, 102, 241, 0.1);">
+                <div
+                    style="width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: var(--surface); position: relative;">
+                    <img src="{% static 'images/profile.jpg' %}" alt="{{ name }}"
+                        style="width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) brightness(0.95); transition: transform 0.5s ease;">
+                    <div
+                        style="position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-dark) 0%, transparent 40%); opacity: 0.8;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" style="padding-top: 5rem;">
+    <div class="container text-center">
+        <span class="badge">About</span>
+        <h2>The Journey</h2>
+        <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main); margin-bottom: 1.5rem;">{{ about|linebreaksbr }}</p>
+            <p
+                style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 3.5rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Beyond technical skills, I am driven by a deep curiosity for how systems work under the hood and an
+                enduring passion for problem-solving. Whether it's crafting an intuitive user interface, optimizing
+                database queries, or architecting robust backend structures, I strive for excellence, accessibility, and
+                scalable design in every line of code I write.
+            </p>
+
+            <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <div class="card stat-card" style="flex: 1; min-width: 200px; padding: 2rem;">
+                    <span class="stat-number text-gradient-primary" style="font-size: 3.5rem;">{{ internships_count }}+</span>
+                    <span class="stat-label">Internships</span>
+                </div>
+                <div class="card stat-card" style="flex: 1; min-width: 200px; padding: 2rem;">
+                    <span class="stat-number text-gradient-primary" style="font-size: 3.5rem;">{{ projects_count }}+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" style="padding-top: 5rem;">
+    <div class="container text-center">
+        <span class="badge">Expertise</span>
+        <h2>Technical Arsenal</h2>
+        <div
+            style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; margin-bottom: 3rem;">
+            {% for skill in skills %}
+            <div
+                style="background: var(--surface); border: 1px solid var(--border); padding: 0.8rem 1.5rem; border-radius: 100px; font-weight: 500; font-size: 0.95rem;">
+                {{ skill.name }}
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center;">
+            <a href="{% url 'skills' %}" class="btn btn-secondary">Explore All Skills</a>
+        </div>
+    </div>
+</section>
+
+<section id="experience" style="padding-top: 5rem;">
+    <div class="container text-center">
+        <span class="badge">Experience</span>
+        <h2>Career Path</h2>
+        <div class="grid-3" style="text-align: left; margin-top: 4rem; align-items: start;">
+            {% for group, items in grouped_experience.items %}
+            <div class="card" style="padding: 1.8rem;">
+                <h3
+                    style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas {% if items.0.type == 'Training' %}fa-graduation-cap{% else %}fa-briefcase{% endif %}" style="font-size: 0.83em; opacity: 0.8;"></i>
+                    {{ group }}
+                </h3>
+
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    {% for exp in items %}
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="exp-pill"
+                            onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                <div style="color: var(--text-main); font-weight: 700; font-size: 0.9rem;">{{ exp.title }}</div>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div
+                                style="color: var(--text-muted); font-size: 0.75rem; font-weight: 500; white-space: nowrap;">
+                                {{ exp.duration }}</div>
+                        </div>
+
+                        <div class="exp-details">
+                            <p style="font-size: 0.95rem; line-height: 1.6; margin: 0 0 1.2rem 0; color: var(--text-muted);">{{ exp.description|linebreaksbr }}</p>
+                            {% if exp.tech_list %}
+                            <div class="tags" style="margin: 0 0 1.2rem 0;">
+                                {% for tech in exp.tech_list %}
+                                <span class="tag" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
+                            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                                {% if exp.certificate_link %}
+                                <a href="{{ exp.certificate_link }}" target="_blank" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">Certificate</a>
+                                {% endif %}
+                                {% if exp.offer_letter_link %}
+                                <a href="{{ exp.offer_letter_link }}" target="_blank" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">Offer Letter</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if not forloop.last %}
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 0.5rem 0;">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{% url 'internships' %}" class="btn btn-secondary">Explore All Experiences</a>
+        </div>
+    </div>
+</section>
+
+<section id="projects" style="padding-top: 5rem;">
+    <div class="container">
+        <span class="badge" style="display: block; text-align: center; margin: 0 auto; width: max-content;">Works</span>
+        <h2 style="text-align: center;">Recent Focus</h2>
+        <div class="grid-3" style="text-align: left; margin-top: 4rem; align-items: start;">
+            {% for project in projects %}
+            <div class="card" style="padding: 1.8rem;">
+                <h3
+                    style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-folder" style="font-size: 0.83em; opacity: 0.8;"></i>
+                        {{ project.title }}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.8rem;">
+                        {% if project.github_link %}
+                        <a href="{{ project.github_link }}" target="_blank" title="Source Code" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        {% endif %}
+                        {% if project.is_live and project.link %}
+                        <a href="{{ project.link }}" target="_blank" title="Live Link" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </h3>
+
+                <div style="display: flex; flex-direction: column; gap: 0;">
+                    {% if project.tag_list %}
+                    <div class="tags" style="margin: 0;">
+                        {% for tag in project.tag_list %}
+                        <span class="tag" style="font-size: 0.75rem; padding: 0.3rem 0.6rem;">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="{% url 'projects' %}" class="btn btn-secondary">Explore All Projects</a>
+        </div>
+    </div>
+</section>
+
+<section id="certifications" style="padding-top: 5rem;">
+    <div class="container text-center">
+        <span class="badge">Certifications</span>
+        <h2>Licenses & Certifications</h2>
+        <div class="grid-3" style="text-align: left; margin-top: 4rem; align-items: start;">
+            {% for issuer, certs in grouped_certs.items %}
+            <div class="card" style="padding: 1.8rem; height: 100%;">
+                <h3
+                    style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-certificate" style="font-size: 0.83em; opacity: 0.8;"></i>
+                    {{ issuer }}
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    {% for cert in certs %}
+                    <div style="position: relative;">
+                        {% if cert.link %}
+                        <a href="{{ cert.link }}" target="_blank" style="text-decoration: none; display: block;">
+                            {% endif %}
+                            <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 0.6rem 1rem; border-radius: 10px; transition: all 0.3s ease; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;"
+                                onmouseover="this.style.borderColor='var(--primary)'; this.style.backgroundColor='rgba(99, 102, 241, 0.05)'; this.style.transform='translateX(5px)';"
+                                onmouseout="this.style.borderColor='var(--border)'; this.style.backgroundColor='rgba(0,0,0,0.2)'; this.style.transform='none';">
+                                <div style="color: var(--text-main); font-weight: 600; font-size: 0.85rem;">{{ cert.title }}</div>
+                                <div
+                                    style="color: var(--text-muted); font-size: 0.75rem; font-weight: 500; white-space: nowrap;">
+                                    {{ cert.date }}</div>
+                            </div>
+                            {% if cert.link %}
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{% url 'certifications' %}" class="btn btn-secondary">Explore All Certifications</a>
+        </div>
+    </div>
+</section>
+
+<section id="achievements" style="padding-top: 5rem;">
+    <div class="container text-center">
+        <span class="badge">Achievements</span>
+        <h2>Honors & Awards</h2>
+        <div class="grid-3" style="text-align: left; margin-top: 4rem;">
+            {% for ach in achievement_list %}
+            <div class="ach-card">
+                <div class="ach-icon-box">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                
+                {% if ach.date %}
+                <div class="ach-date-badge">{{ ach.date|date:"M Y" }}</div>
+                {% endif %}
+                
+                <h3 class="ach-title">{{ ach.title }}</h3>
+                <p class="ach-desc">{{ ach.description|linebreaksbr }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{% url 'achievements' %}" class="btn btn-secondary">Explore All Achievements</a>
+        </div>
+    </div>
+</section>
+
+<section id="education" style="padding-top: 5rem; padding-bottom: 5rem;">
+    <div class="container text-center">
+        <span class="badge">Education</span>
+        <h2>Academic Background</h2>
+        <div class="experience-list" style="text-align: left; margin-top: 4rem;">
+            {% for edu in education_list %}
+            <div class="exp-card">
+                <div class="exp-meta">
+                    <span>{{ edu.institution }}</span>
+                    <span>{{ edu.duration }}</span>
+                </div>
+                <h3 class="exp-role" style="font-size: 1.25rem;">{{ edu.degree }}</h3>
+                <p style="font-size: 0.95rem;">{{ edu.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

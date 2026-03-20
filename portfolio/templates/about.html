@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 4rem; padding-bottom: 5rem;">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 4rem; text-align: left; flex-wrap: wrap;">
+        
+        <div class="hero-image" style="flex: 1; display: flex; justify-content: center; min-width: 300px;">
+            <div style="position: relative; width: 100%; max-width: 380px; border-radius: 20px; padding: 1px; background: linear-gradient(135deg, var(--surface) 0%, rgba(99, 102, 241, 0.3) 100%); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+                <div style="border-radius: 20px; overflow: hidden; background: var(--surface); position: relative;">
+                    <img src="{% static 'images/profile.jpg' %}" alt="{{ name }}" style="width: 100%; height: auto; display: block; filter: contrast(1.1) brightness(0.95); transition: transform 0.5s ease;">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-dark) 0%, transparent 50%); opacity: 0.7;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-content" style="flex: 1.5; min-width: 320px;">
+            <span class="badge" style="margin-bottom: 1rem;">About Me</span>
+            <h2 style="font-size: clamp(2rem, 4vw, 3rem); text-align: left; margin-bottom: 1.5rem;">The Journey</h2>
+            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main); margin-bottom: 1.5rem;">{{ about|linebreaksbr }}</p>
+            <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 2.5rem;">
+                Beyond technical skills, I am driven by a deep curiosity for how systems work under the hood and an enduring passion for problem-solving. Whether it's crafting an intuitive user interface, optimizing database queries, or architecting robust backend structures, I strive for excellence, accessibility, and scalable design in every line of code I write.
+            </p>
+            
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                <div class="card stat-card" style="flex: 1; min-width: 140px; padding: 1.5rem;">
+                    <span class="stat-number text-gradient-primary" style="font-size: 2.5rem;">{{ internships_count }}+</span>
+                    <span class="stat-label">Internships</span>
+                </div>
+                <div class="card stat-card" style="flex: 1; min-width: 140px; padding: 1.5rem;">
+                    <span class="stat-number text-gradient-primary" style="font-size: 2.5rem;">{{ projects_count }}+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="experience" style="padding-top: 5rem; padding-bottom: 2rem;">
+    <div class="container text-center">
+        <span class="badge">Experience</span>
+        <h2>Career Path</h2>
+        <div class="grid-3" style="text-align: left; margin-top: 4rem; align-items: start;">
+            {% for group, items in grouped_experience.items %}
+            <div class="card" style="padding: 1.8rem;">
+                <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas {% if items.0.type == 'Training' %}fa-graduation-cap{% else %}fa-briefcase{% endif %}" style="font-size: 0.83em; opacity: 0.8;"></i>
+                    {{ group }}
+                </h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    {% for exp in items %}
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="exp-pill" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                <div style="color: var(--text-main); font-weight: 700; font-size: 0.9rem;">{{ exp.title }}</div>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div style="color: var(--text-muted); font-size: 0.75rem; font-weight: 500; white-space: nowrap;">{{ exp.duration }}</div>
+                        </div>
+
+                        <div class="exp-details">
+                            <p style="font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">{{ exp.description|linebreaksbr }}</p>
+
+                            {% if exp.tech_list %}
+                            <div class="tags" style="margin: 0 0 1.5rem 0;">
+                                {% for tech in exp.tech_list %}
+                                <span class="tag">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                                {% if exp.certificate_link %}
+                                <a href="{{ exp.certificate_link }}" target="_blank" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">Certificate</a>
+                                {% endif %}
+                                {% if exp.offer_letter_link %}
+                                <a href="{{ exp.offer_letter_link }}" target="_blank" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">Offer Letter</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if not forloop.last %}
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 0.5rem 0;">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="card" style="text-align: center; grid-column: 1 / -1;">
+                <p>Experience incoming. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+</section>
+
+<section id="projects" style="padding-top: 5rem; padding-bottom: 5rem;">
+    <div class="container text-center">
+        <span class="badge">Portfolio</span>
+        <h2>Selected Works</h2>
+        <div class="grid-3" style="text-align: left; align-items: start;">
+            {% for project in projects %}
+            <div class="card" style="padding: 1.8rem;">
+                <h3
+                    style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-folder" style="font-size: 0.83em; opacity: 0.8;"></i>
+                        {{ project.title }}
+                    </div>
+                    {% if project.github_link %}
+                    <a href="{{ project.github_link }}" target="_blank" title="GitHub Repository" 
+                       style="color: var(--text-muted); font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease;" 
+                       onmouseover="this.style.color='var(--primary)'; this.style.transform='scale(1.1)';" 
+                       onmouseout="this.style.color='var(--text-muted)'; this.style.transform='scale(1)';">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+                </h3>
+
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="exp-pill"
+                            onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                <div style="color: var(--text-main); font-weight: 700; font-size: 0.9rem;">Project Details</div>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                {% if project.is_live and project.link %}
+                                <a href="{{ project.link }}" target="_blank" style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" onclick="event.stopPropagation();">
+                                    Live <i class="fas fa-external-link-alt" style="margin-left: 3px;"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.github_link %}
+                                <a href="{{ project.github_link }}" target="_blank" style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" onclick="event.stopPropagation();">
+                                    Source <i class="fab fa-github" style="margin-left: 3px;"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="exp-details">
+                            {% if project.image_url %}
+                            <div style="margin-bottom: 1.2rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                                <img src="{{ project.image_url }}" alt="{{ project.title }}" style="width: 100%; display: block; object-fit: cover; max-height: 200px;">
+                            </div>
+                            {% endif %}
+                            <ul style="padding-left: 1.2rem; margin-bottom: 1.2rem; list-style-type: none;">
+                                {% for point in project.point_list %}
+                                <li style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 0.5rem; position: relative; padding-left: 1.5rem; text-align: left;">
+                                    <i class="fas fa-circle" style="font-size: 0.4rem; color: var(--primary); position: absolute; left: 0; top: 0.6rem;"></i>
+                                    {{ point }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% if project.tag_list %}
+                            <div class="tags" style="margin: 0;">
+                                {% for tag in project.tag_list %}
+                                <span class="tag" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

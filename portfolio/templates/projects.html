@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 4rem;">
+    <div class="container text-center">
+        <span class="badge">Portfolio</span>
+        <h2>Selected Works</h2>
+        <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">An in-depth showcase of the real-world applications and digital experiences I've engineered.</p>
+
+        <div class="grid-3" style="text-align: left; align-items: start;">
+            {% for project in projects %}
+            <div class="card" style="padding: 1.8rem;">
+                <h3
+                    style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-folder" style="font-size: 0.83em; opacity: 0.8;"></i>
+                        {{ project.title }}
+                    </div>
+                    {% if project.github_link %}
+                    <a href="{{ project.github_link }}" target="_blank" title="GitHub Repository" 
+                       style="color: var(--text-muted); font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease;" 
+                       onmouseover="this.style.color='var(--primary)'; this.style.transform='scale(1.1)';" 
+                       onmouseout="this.style.color='var(--text-muted)'; this.style.transform='scale(1)';">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+                </h3>
+
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="exp-pill"
+                            onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                <div style="color: var(--text-main); font-weight: 700; font-size: 0.9rem;">Project Details</div>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                {% if project.is_live and project.link %}
+                                <a href="{{ project.link }}" target="_blank" style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" onclick="event.stopPropagation();">
+                                    Live <i class="fas fa-external-link-alt" style="margin-left: 3px;"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.github_link %}
+                                <a href="{{ project.github_link }}" target="_blank" style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" onclick="event.stopPropagation();">
+                                    Source <i class="fab fa-github" style="margin-left: 3px;"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="exp-details">
+                            {% if project.image_url %}
+                            <div style="margin-bottom: 1.2rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                                <img src="{{ project.image_url }}" alt="{{ project.title }}" style="width: 100%; display: block; object-fit: cover; max-height: 200px;">
+                            </div>
+                            {% endif %}
+                            <ul style="padding-left: 1.2rem; margin-bottom: 1.2rem; list-style-type: none;">
+                                {% for point in project.point_list %}
+                                <li style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 0.5rem; position: relative; padding-left: 1.5rem;">
+                                    <i class="fas fa-circle" style="font-size: 0.4rem; color: var(--primary); position: absolute; left: 0; top: 0.6rem;"></i>
+                                    {{ point }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% if project.tag_list %}
+                            <div class="tags" style="margin: 0;">
+                                {% for tag in project.tag_list %}
+                                <span class="tag" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

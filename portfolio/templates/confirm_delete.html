@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section style="padding-top: 15rem;">
+    <div class="container text-center">
+        <span class="badge"
+            style="color: #ef4444; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2);">Danger</span>
+        <h2>Are you sure?</h2>
+        <p style="margin: 0 auto; max-width: 500px; color: var(--text-muted);">You are about to permanently delete
+            <strong>"{{ object }}"</strong>. This action cannot be undone.</p>
+
+        <div class="form-container"
+            style="margin-top: 3rem; max-width: 500px; background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2);">
+            <form method="POST" style="margin: 0; padding: 0;">
+                {% csrf_token %}
+                <div style="display: flex; gap: 1rem; flex-direction: column;">
+                    <button type="submit" class="btn" style="background: #ef4444; color: white;">Yes, Delete
+                        Forever</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary" style="text-align: center;">No, Keep
+                        It</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

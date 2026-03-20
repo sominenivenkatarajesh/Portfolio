@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of {{ name }} - {{ role }}">
+    <title>{{ name }} | Portfolio</title>
+    <!-- Modern Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS with Versioning to Bust Cache -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v={{ request.now|default:'3.1' }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav>
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">SVR</a>
+            <div class="nav-links" style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'projects' %}">Projects</a>
+                <a href="{% url 'internships' %}">Internships</a>
+                <a href="{% url 'education' %}">Education</a>
+                <a href="{% url 'certifications' %}">Certifications</a>
+                <a href="{% url 'achievements' %}">Achievements</a>
+                <a href="{% url 'contact' %}" class="btn btn-primary"
+                    style="padding: 0.4rem 1rem; font-size: 0.85rem;">Connect</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% if messages %}
+        <div class="container" style="padding-top: 100px;">
+            {% for message in messages %}
+            <div
+                style="background: rgba(99, 102, 241, 0.1); border-left: 4px solid var(--primary); padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 SVR. All Rights Reserved.</p>
+                <div class="socials">
+                    <a href="{{ github }}" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="{{ linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:{{ email }}"><i class="fas fa-envelope"></i></a>
+                    <a href="https://wa.me/{{ phone|cut:'+'|cut:' ' }}?text=Hi%20Rajesh,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    {% if user.is_staff %}
+                    <a href="{% url 'dashboard' %}" title="Dashboard"><i class="fas fa-cog"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 3D Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

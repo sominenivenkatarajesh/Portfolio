@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 4rem;">
+    <div class="container text-center">
+        <span class="badge">Certifications</span>
+        <h2>Licenses & Certifications</h2>
+        <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">Verified credentials and professional certifications that continually expand my skill set.</p>
+
+        <div class="grid-3" style="text-align: left; max-width: 1100px; margin: 0 auto; margin-top: 4rem; align-items: start;">
+            {% for issuer, certs in grouped_certs.items %}
+            <div class="card" style="padding: 2rem;">
+                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-certificate" style="font-size: 0.8em; opacity: 0.8;"></i>
+                    {{ issuer }}
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    {% for cert in certs %}
+                    <div style="position: relative;">
+                        {% if cert.link %}
+                        <a href="{{ cert.link }}" target="_blank" style="text-decoration: none; display: block;">
+                        {% endif %}
+                            <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); padding: 0.6rem 1rem; border-radius: 10px; transition: all 0.3s ease; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 0.8rem;" 
+                                 onmouseover="this.style.borderColor='var(--primary)'; this.style.backgroundColor='rgba(99, 102, 241, 0.05)'; this.style.transform='translateX(5px)';" 
+                                 onmouseout="this.style.borderColor='var(--border)'; this.style.backgroundColor='rgba(0,0,0,0.2)'; this.style.transform='none';">
+                                <div style="color: var(--text-main); font-weight: 600; font-size: 0.85rem;">{{ cert.title }}</div>
+                                <div style="color: var(--text-muted); font-size: 0.75rem; font-weight: 500; white-space: nowrap;">{{ cert.date }}</div>
+                            </div>
+                        {% if cert.link %}
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="card" style="text-align: center; grid-column: 1 / -1;">
+                <p>Certifications incoming. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

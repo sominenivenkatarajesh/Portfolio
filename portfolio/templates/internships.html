@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 4rem;">
+    <div class="container text-center">
+        <span class="badge">Experience</span>
+        <h2>Career Path</h2>
+        <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">A detailed look at my professional roles and the impactful contributions I've made along the way.</p>
+
+        <div class="grid-3" style="text-align: left; margin-top: 4rem; align-items: start;">
+            {% for group, items in grouped_experience.items %}
+            <div class="card" style="padding: 1.8rem;">
+                <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--primary); border-bottom: 1px solid rgba(99, 102, 241, 0.2); padding-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas {% if items.0.type == 'Training' %}fa-graduation-cap{% else %}fa-briefcase{% endif %}" style="font-size: 0.83em; opacity: 0.8;"></i>
+                    {{ group }}
+                </h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    {% for exp in items %}
+                    <div style="display: flex; flex-direction: column;">
+                        <div class="exp-pill" onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active');">
+                            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                                <div style="color: var(--text-main); font-weight: 700; font-size: 0.9rem;">{{ exp.title }}</div>
+                                <i class="fas fa-chevron-down toggle-icon"></i>
+                            </div>
+                            <div style="color: var(--text-muted); font-size: 0.75rem; font-weight: 500; white-space: nowrap;">{{ exp.duration }}</div>
+                        </div>
+
+                        <div class="exp-details">
+                            <p style="font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">{{ exp.description|linebreaksbr }}</p>
+
+                            {% if exp.tech_list %}
+                            <div class="tags" style="margin: 0 0 1.5rem 0;">
+                                {% for tech in exp.tech_list %}
+                                <span class="tag">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                                {% if exp.certificate_link %}
+                                <a href="{{ exp.certificate_link }}" target="_blank" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">Certificate</a>
+                                {% endif %}
+                                {% if exp.offer_letter_link %}
+                                <a href="{{ exp.offer_letter_link }}" target="_blank" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">Offer Letter</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if not forloop.last %}
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 0.5rem 0;">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="card" style="text-align: center; grid-column: 1 / -1;">
+                <p>Experience incoming. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

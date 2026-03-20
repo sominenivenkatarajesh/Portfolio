@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 4.5rem; background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent 40%);">
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="dash-header" style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 4rem; backdrop-filter: blur(10px); align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+            <div style="min-width: 200px;">
+                <span class="badge" style="margin-bottom: 0.5rem;">Portfolio Management</span>
+                <h1 style="text-align: left; margin: 0; font-size: 2.5rem; letter-spacing: -1px;">Admin Dashboard</h1>
+            </div>
+            
+            <form method="GET" action="{% url 'dashboard' %}" style="flex: 2; min-width: 300px; position: relative;">
+                <input type="text" name="q" placeholder="Search across all databases..." value="{{ search_query }}" 
+                       style="width: 100%; padding: 0.9rem 1rem 0.9rem 3.2rem; border-radius: 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: var(--text-main); font-family: var(--font-body); transition: all 0.3s ease; outline: none; font-size: 1rem;"
+                       onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 0 20px rgba(99, 102, 241, 0.2)';"
+                       onblur="this.style.borderColor='var(--border)'; this.style.boxShadow='none';">
+                <i class="fas fa-search" style="position: absolute; left: 1.3rem; top: 50%; transform: translateY(-50%); color: var(--primary); opacity: 0.8; font-size: 1.1rem;"></i>
+            </form>
+
+            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: flex-end; flex: 1;">
+                <a href="{% url 'logout' %}" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.7rem 1.2rem; border-radius: 12px;">
+                    <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 5rem;">
+            <a href="{% url 'project_add' %}" class="btn btn-primary" style="padding: 1rem; border-radius: 16px; font-size: 0.9rem;"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Project</a>
+            <a href="{% url 'internship_add' %}" class="btn btn-primary" style="padding: 1rem; border-radius: 16px; font-size: 0.9rem;"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Internship</a>
+            <a href="{% url 'training_add' %}" class="btn btn-primary" style="padding: 1rem; border-radius: 16px; font-size: 0.9rem;"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Training</a>
+            <a href="{% url 'skill_add' %}" class="btn btn-primary" style="padding: 1rem; border-radius: 16px; font-size: 0.9rem;"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Skill</a>
+            <a href="{% url 'education_add' %}" class="btn btn-primary" style="padding: 1rem; border-radius: 16px; font-size: 0.9rem;"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Education</a>
+            <a href="{% url 'certification_add' %}" class="btn btn-primary" style="padding: 1rem; border-radius: 16px; font-size: 0.9rem;"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Cert</a>
+            <a href="{% url 'achievement_add' %}" class="btn btn-primary" style="padding: 1rem; border-radius: 16px; font-size: 0.9rem;"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Achieve</a>
+        </div>
+
+        {% if search_query %}
+        <div style="margin-bottom: 2rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 12px; border: 1px dashed var(--primary); display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-main);">Showing results for: <strong>"{{ search_query }}"</strong></span>
+            <a href="{% url 'dashboard' %}" style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">Clear Search</a>
+        </div>
+        {% endif %}
+
+        <!-- Skill Section (New Boxed Style) -->
+        <div id="skills-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2.5rem; margin-bottom: 5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+                <h2 style="text-align: left; font-size: 1.8rem; margin: 0; color: var(--text-main);">
+                    <i class="fas fa-tools" style="color: var(--primary); margin-right: 15px;"></i>Skills & Expertise
+                </h2>
+                <a href="{% url 'skill_add' %}" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.6rem 1.2rem;"><i class="fas fa-plus"></i> Add New</a>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                {% for category, skills in grouped_skills.items %}
+                <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 20px; padding: 1.5rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='none'">
+                    <h3 style="font-size: 1rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; display: flex; align-items: center;">
+                        <span style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-right: 10px; box-shadow: 0 0 10px var(--primary);"></span>
+                        {{ category }}
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                        {% for skill in skills %}
+                        <div class="dash-item" style="padding: 1rem 1.25rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1rem; font-weight: 600;">{{ skill.name }}</h4>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">{{ skill.date|date:"M Y" }}</span>
+                            </div>
+                            <div class="dash-actions">
+                                <a href="{% url 'skill_edit' skill.pk %}" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'skill_delete' skill.pk %}" class="btn-icon danger" title="Delete"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% empty %}
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-muted);">No skills found matching your search.</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Detailed Database View (Boxed Layouts) -->
+        <div style="display: grid; grid-template-columns: 1fr; gap: 4rem;">
+            <!-- Projects -->
+            <div id="projects-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2 style="text-align: left; font-size: 1.8rem; margin: 0;"><i class="fas fa-project-diagram" style="color: var(--primary); margin-right: 15px;"></i>Projects</h2>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+                    {% for project in projects %}
+                    <div class="dash-item" style="flex-direction: column; align-items: stretch; padding: 1.5rem; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1.1rem;">{{ project.title }}</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">{{ project.date|date:"M Y" }}</span>
+                            </div>
+                            <div class="dash-actions">
+                                <a href="{% url 'project_edit' project.pk %}" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'project_delete' project.pk %}" class="btn-icon danger" title="Delete"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="tags" style="margin: 0;">
+                            {% for tag in project.tag_list|slice:":3" %}
+                            <span class="tag" style="font-size: 0.7rem;">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Experience (Internships & Training) -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; @media (max-width: 992px) { grid-template-columns: 1fr; }">
+                <!-- Internships -->
+                <div id="internships-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2rem;">
+                    <h2 style="text-align: left; font-size: 1.5rem; margin-bottom: 2rem;"><i class="fas fa-briefcase" style="color: var(--primary); margin-right: 15px;"></i>Internships</h2>
+                    <div class="dash-list">
+                        {% for item in internships %}
+                        <div class="dash-item">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1.1rem;">{{ item.company }}</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">{{ item.role }} • {{ item.date|date:"M Y" }}</span>
+                            </div>
+                            <div class="dash-actions">
+                                <a href="{% url 'internship_edit' item.pk %}" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'internship_delete' item.pk %}" class="btn-icon danger" title="Delete"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Training -->
+                <div id="trainings-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2rem;">
+                    <h2 style="text-align: left; font-size: 1.5rem; margin-bottom: 2rem;"><i class="fas fa-laptop-code" style="color: var(--primary); margin-right: 15px;"></i>Training</h2>
+                    <div class="dash-list">
+                        {% for item in training_list %}
+                        <div class="dash-item">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1.1rem;">{{ item.course }}</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">{{ item.organization }} • {{ item.date|date:"M Y" }}</span>
+                            </div>
+                            <div class="dash-actions">
+                                <a href="{% url 'training_edit' item.pk %}" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'training_delete' item.pk %}" class="btn-icon danger" title="Delete"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education & Certifications -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; @media (max-width: 992px) { grid-template-columns: 1fr; }">
+                <!-- Education -->
+                <div id="education-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2rem;">
+                    <h2 style="text-align: left; font-size: 1.5rem; margin-bottom: 2rem;"><i class="fas fa-graduation-cap" style="color: var(--primary); margin-right: 15px;"></i>Education</h2>
+                    <div class="dash-list">
+                        {% for item in education_list %}
+                        <div class="dash-item">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1.1rem;">{{ item.degree }}</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">{{ item.institution }} • {{ item.date|date:"M Y" }}</span>
+                            </div>
+                            <div class="dash-actions">
+                                <a href="{% url 'education_edit' item.pk %}" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'education_delete' item.pk %}" class="btn-icon danger" title="Delete"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div id="certifications-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2rem;">
+                    <h2 style="text-align: left; font-size: 1.5rem; margin-bottom: 2rem;"><i class="fas fa-certificate" style="color: var(--primary); margin-right: 15px;"></i>Certifications</h2>
+                    <div class="dash-list">
+                        {% for item in certification_list %}
+                        <div class="dash-item">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1.1rem;">{{ item.title }}</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">{{ item.issuer }} • {{ item.date|date:"M Y" }}</span>
+                            </div>
+                            <div class="dash-actions">
+                                <a href="{% url 'certification_edit' item.pk %}" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'certification_delete' item.pk %}" class="btn-icon danger" title="Delete"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div id="achievements-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2.5rem; margin-bottom: 5rem;">
+                <h2 style="text-align: left; font-size: 1.8rem; margin-bottom: 2rem;"><i class="fas fa-trophy" style="color: var(--primary); margin-right: 15px;"></i>Achievements</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+                    {% for item in achievement_list %}
+                    <div class="dash-item">
+                        <div>
+                            <h4 style="margin: 0; font-size: 1.1rem;">{{ item.title }}</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">{{ item.date|date:"M Y" }}</span>
+                        </div>
+                        <div class="dash-actions">
+                            <a href="{% url 'achievement_edit' item.pk %}" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'achievement_delete' item.pk %}" class="btn-icon danger" title="Delete"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Messages Table -->
+            <div id="messages-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 30px; padding: 2.5rem; margin-bottom: 5rem;">
+                <h2 style="text-align: left; font-size: 1.8rem; margin-bottom: 2rem;"><i class="fas fa-envelope" style="color: var(--primary); margin-right: 15px;"></i>Messages</h2>
+                <div class="dash-list">
+                    {% for msg in messages_list %}
+                    <div class="dash-item" style="flex-direction: column; align-items: stretch; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1.1rem;">{{ msg.name }}</h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">{{ msg.email }} • {{ msg.created_at|date:"d M Y H:i" }}</span>
+                            </div>
+                            <div style="display: flex; gap: 0.8rem; align-items: center;">
+                                <span class="badge" style="margin: 0; font-size: 0.6rem;">New</span>
+                                <a href="{% url 'contact_delete' msg.pk %}" class="btn-icon danger" title="Delete Message" style="width: 32px; height: 32px; font-size: 0.8rem;"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <p style="margin: 0; font-size: 0.95rem; color: var(--text-main); white-space: pre-wrap; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">{{ msg.message }}</p>
+                    </div>
+                    {% empty %}
+                    <p style="text-align: center; color: var(--text-muted);">No messages yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Inline responsive adjustments */
+@media (max-width: 992px) {
+    .dash-header { flex-direction: column; align-items: stretch !important; text-align: center; }
+    .dash-header h1 { text-align: center !important; }
+    form { margin: 1rem 0 !important; max-width: none !important; }
+    .btn-secondary { width: 100%; }
+    .dash-header > div:last-child { justify-content: center !important; }
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+</style>
+{% endblock %}

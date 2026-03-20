@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding-top: 4rem;">
+    <div class="container text-center">
+        <span class="badge" style="display: block; width: fit-content; margin: 0 auto 1rem;">Contact</span>
+        <h2>Get In Touch</h2>
+        <p>Drop a message for collaborations or opportunities.</p>
+
+        <div class="form-container" style="margin-top: 3rem; max-width: 600px;">
+            <p
+                style="color: var(--primary); font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem; margin-bottom: 2rem;">
+                {{ email }}</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label>Your Name</label>
+                    <input type="text" name="name" placeholder="John Doe" required>
+                </div>
+                <div class="input-group">
+                    <label>Your Email</label>
+                    <input type="email" name="email" placeholder="john@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea name="message" rows="5" placeholder="Let's build something great..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 1rem;">Send
+                    Message</button>
+            </form>
+
+            <div style="margin-top: 3rem; display: flex; justify-content: center; gap: 2rem;">
+                <a href="{{ github }}" class="btn-icon" target="_blank"><i
+                        class="fab fa-github"></i></a>
+                <a href="{{ linkedin }}" class="btn-icon" target="_blank"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:{{ email }}" class="btn-icon" style="color: var(--primary);"><i
+                        class="fas fa-envelope"></i></a>
+                <a href="https://wa.me/{{ phone|cut:'+'|cut:' ' }}?text=Hi%20Rajesh,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" class="btn-icon" target="_blank" style="color: #25d366;"><i
+                        class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

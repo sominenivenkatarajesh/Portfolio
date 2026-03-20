@@ -15,12 +15,16 @@
             </h1>
             <p style="font-size: 1.15rem; margin: 0 0 2.5rem; max-width: 90%; line-height: 1.7;">{{ role }} dedicated to
                 building high-performance, elegant, and user-centric web applications.</p>
-            <div class="hero-btns" style="justify-content: flex-start;">
+            <div class="hero-btns" style="justify-content: flex-start; align-items: center; gap: 1.5rem;">
                 <a href="{% url 'contact' %}" class="btn btn-primary" style="padding: 0.8rem 2rem;">Connect</a>
                 <a href="{% static 'resume/resume.pdf' %}" class="btn btn-secondary" style="padding: 0.8rem 2rem;"
                     download>
                     <i class="fas fa-download" style="margin-right: 8px;"></i> Download CV
                 </a>
+                <div class="hero-socials" style="display: flex; gap: 1rem; margin-left: 0.5rem;">
+                    <a href="{{ linkedin }}" target="_blank" class="btn-icon" style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary);"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="{{ github }}" target="_blank" class="btn-icon"><i class="fab fa-github"></i></a>
+                </div>
             </div>
         </div>
         <div class="hero-image" style="flex: 1; display: flex; justify-content: center; min-width: 300px;">

@@ -8,5 +8,5 @@ def global_context(request):
         'phone': os.environ.get('PHONE', '+91 6302759116'),
         'address': os.environ.get('ADDRESS', 'Visakhapatnam, Andhra Pradesh, India'),
         'github': os.environ.get('GITHUB', 'https://github.com/sominenivenkatarajesh'),
-        'linkedin': os.environ.get('LINKEDIN', 'https://www.linkedin.com/in/sominenivenkatarajesh'),
+        'linkedin': os.environ.get('LINKEDIN', 'https://www.linkedin.com/in/somineni-venkat-rajesh'),
     }

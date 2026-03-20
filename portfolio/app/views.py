@@ -30,6 +30,7 @@ def home(request):
 
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
+            print(f"Email error in home view: {e}")
             messages.warning(request, 'Message saved, but failed to send email notification.')
             
         return redirect('home')
@@ -174,6 +175,7 @@ def contact(request):
 
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
+            print(f"Email error in contact view: {e}")
             messages.warning(request, 'Message saved, but failed to send email notification.')
         return redirect('contact')
     return render(request, 'contact.html')

@@ -5,8 +5,23 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
+import threading
 from .models import Project, Skill, ContactMessage, Internship, Education, Certification, Achievement, Training
 from .forms import ProjectForm, SkillForm, InternshipForm, EducationForm, CertificationForm, AchievementForm, TrainingForm
+
+def send_contact_emails_background(name, email, message_body, default_from_email):
+    try:
+        # Notify Admin
+        subject = f"New Portfolio Message from {name}"
+        email_message = f"From: {name} <{email}>\n\nMessage:\n{message_body}"
+        send_mail(subject, email_message, default_from_email, [default_from_email])
+
+        # Auto-reply to User
+        user_subject = "Thanks for getting in touch!"
+        user_message = f"Hi {name},\n\nThank you for reaching out to me! I have received your message and will get back to you as soon as possible.\n\nBest regards,\nSomineni Venkata Rajesh"
+        send_mail(user_subject, user_message, default_from_email, [email])
+    except Exception as e:
+        print(f"Error sending emails in background: {e}")
 
 def home(request):
     if request.method == 'POST':
@@ -14,25 +29,22 @@ def home(request):
         email = request.POST.get('email')
         message_body = request.POST.get('message')
         
-        # Save to database
-        ContactMessage.objects.create(name=name, email=email, message=message_body)
-        
+        saved_to_db = False
         try:
-            # Notify Admin
-            subject = f"New Portfolio Message from {name}"
-            email_message = f"From: {name} <{email}>\n\nMessage:\n{message_body}"
-            send_mail(subject, email_message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL])
-
-            # Auto-reply to User
-            user_subject = "Thanks for getting in touch!"
-            user_message = f"Hi {name},\n\nThank you for reaching out to me! I have received your message and will get back to you as soon as possible.\n\nBest regards,\nSomineni Venkata Rajesh"
-            send_mail(user_subject, user_message, settings.DEFAULT_FROM_EMAIL, [email])
-
-            messages.success(request, 'Your message has been sent successfully!')
+            # Save to database
+            ContactMessage.objects.create(name=name, email=email, message=message_body)
+            saved_to_db = True
         except Exception as e:
-            print(f"Email error in home view: {e}")
-            messages.warning(request, f'Message saved, but failed to send email: {str(e)}')
+            print(f"Error saving to database in home: {e}")
+            messages.error(request, f'Technical difficulty saving your message: {str(e)}')
             
+        if saved_to_db:
+            # Notify Admin & Auto-reply in background
+            threading.Thread(
+                target=send_contact_emails_background, 
+                args=(name, email, message_body, settings.DEFAULT_FROM_EMAIL)
+            ).start()
+            messages.success(request, 'Your message has been sent successfully!')
         return redirect('home')
 
     projects_list = Project.objects.all().order_by('-date')
@@ -161,22 +173,23 @@ def contact(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         message_body = request.POST.get('message')
-        ContactMessage.objects.create(name=name, email=email, message=message_body)
+        
+        saved_to_db = False
         try:
-            # Notify Admin
-            subject = f"New Portfolio Message from {name}"
-            email_message = f"From: {name} <{email}>\n<br>\nMessage:\n{message_body}"
-            send_mail(subject, email_message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL])
-
-            # Auto-reply to User
-            user_subject = "Thanks for getting in touch!"
-            user_message = f"Hi {name},\n\nThank you for reaching out to me! I have received your message and will get back to you as soon as possible.\n\nBest regards,\nSomineni Venkata Rajesh"
-            send_mail(user_subject, user_message, settings.DEFAULT_FROM_EMAIL, [email])
-
-            messages.success(request, 'Your message has been sent successfully!')
+            # Save to database
+            ContactMessage.objects.create(name=name, email=email, message=message_body)
+            saved_to_db = True
         except Exception as e:
-            print(f"Email error in contact view: {e}")
-            messages.warning(request, f'Message saved, but failed to send email: {str(e)}')
+            print(f"Error saving to database in contact: {e}")
+            messages.error(request, f'Technical difficulty saving your message. Error: {str(e)}')
+            
+        if saved_to_db:
+            # Notify Admin & Auto-reply in background
+            threading.Thread(
+                target=send_contact_emails_background, 
+                args=(name, email, message_body, settings.DEFAULT_FROM_EMAIL)
+            ).start()
+            messages.success(request, 'Your message has been sent successfully!')
         return redirect('contact')
     return render(request, 'contact.html')
 

@@ -2,42 +2,47 @@
 {% load static %}
 
 {% block content %}
-<section class="hero" style="min-height: 90vh; display: flex; align-items: center; padding-top: 5rem; position: relative; overflow: visible;">
-    <div class="container"
-        style="display: flex; align-items: center; justify-content: space-between; gap: 4rem; text-align: left; flex-wrap: wrap-reverse;">
-        <div class="hero-content" style="flex: 1.5; min-width: 320px;">
-            <span class="badge" style="margin-bottom: 1rem;">Portfolio</span>
-            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem;">
-                <span class="text-gradient"
-                    style="font-size: 0.5em; display: block; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Hello,
-                    I'm</span>
-                <span class="text-gradient-primary">{{ name }}</span>
-            </h1>
-            <p style="font-size: 1.15rem; margin: 0 0 2.5rem; max-width: 90%; line-height: 1.7;">{{ role }} dedicated to
-                building high-performance, elegant, and user-centric web applications.</p>
-            <div class="hero-btns" style="justify-content: flex-start; align-items: center; gap: 1.5rem;">
-                <a href="{% url 'contact' %}" class="btn btn-primary" style="padding: 0.8rem 2rem;">Connect</a>
-                <a href="{% static 'resume/Rajesh_specilised_CV.pdf' %}" class="btn btn-secondary" style="padding: 0.8rem 2rem;"
-                    download="Rajesh specilised CV">
-                    <i class="fas fa-download" style="margin-right: 8px;"></i> Download CV
-                </a>
-                <div class="hero-socials" style="display: flex; gap: 1rem; margin-left: 0.5rem;">
-                    <a href="{{ linkedin }}" target="_blank" class="btn-icon" style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary);"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="{{ github }}" target="_blank" class="btn-icon"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="hero-image" style="flex: 1; display: flex; justify-content: center; min-width: 300px;">
-            <div
-                style="position: relative; width: 320px; height: 380px; border-radius: 30px; background: var(--surface); padding: 1px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                <div
-                    style="width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: var(--surface); position: relative;">
-                    <img src="{% static 'images/profile.jpg' %}" alt="{{ name }}"
-                        style="width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) brightness(0.95); transition: transform 0.5s ease;">
-                    <div
-                        style="position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-dark) 0%, transparent 40%); opacity: 0.8;">
-                    </div>
-                </div>
+<style>
+    /* Typing Cursor */
+    .typing-cursor {
+        display: inline-block;
+        width: 3px;
+        height: 1.2em;
+        background-color: var(--primary);
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: blink 0.8s infinite;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+</style>
+
+<section class="hero" style="min-height: 90vh; display: flex; align-items: center; padding-top: 5rem; position: relative; overflow: hidden; background-color: var(--bg-dark);">
+    <!-- Live Background Particles -->
+    <div id="particles-js" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0;"></div>
+
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; max-width: 800px; margin: 0 auto; position: relative; z-index: 1;">
+        <span class="badge" style="margin-bottom: 1.5rem; box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);">Portfolio</span>
+        <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+            <span class="text-gradient"
+                style="font-size: 0.4em; display: block; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.8rem;">Hello, I'm</span>
+            <span class="text-gradient-primary">{{ name }}</span>
+        </h1>
+        <p style="font-size: 1.25rem; margin: 0 auto 2.5rem; max-width: 750px; line-height: 1.7; color: var(--text-muted); min-height: 4.5rem;">
+            <span id="typed-sentence" style="color: var(--text-main); font-weight: 400; text-shadow: 0 0 5px rgba(255,255,255,0.05);"></span><span class="typing-cursor"></span>
+        </p>
+        <div class="hero-btns" style="display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+            <a href="{% url 'contact' %}" class="btn btn-primary" style="padding: 0.8rem 2.5rem;">Connect</a>
+            <a href="{% static 'resume/SVRajeshcv.pdf' %}" class="btn btn-secondary" style="padding: 0.8rem 2.5rem;"
+                download="SVRajesh_CV.pdf">
+                <i class="fas fa-download" style="margin-right: 8px;"></i> Download CV
+            </a>
+            <div class="hero-socials" style="display: flex; gap: 1rem;">
+                <a href="{{ linkedin }}" target="_blank" class="btn-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--primary);"><i class="fab fa-linkedin-in"></i></a>
+                <a href="{{ github }}" target="_blank" class="btn-icon"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </div>
@@ -281,4 +286,97 @@
         </div>
     </div>
 </section>
+
+<!-- Particles JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 1. Particles.js Live Background ---
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#6366f1" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.3, "random": true },
+                    "size": { "value": 3, "random": true },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#6366f1",
+                        "opacity": 0.2,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 1.5,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": { "enable": true, "mode": "grab" },
+                        "onclick": { "enable": true, "mode": "push" },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
+                        "push": { "particles_nb": 3 }
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+
+        // --- 2. Full Sentence Typing Effect ---
+        const typedSentenceElement = document.getElementById('typed-sentence');
+        if (!typedSentenceElement) return;
+
+        // Base sentences
+        const sentences = [
+            "A {{ role|default:'Developer'|escapejs }} dedicated to building high-performance, elegant, and user-centric web applications.",
+            "A Software Engineer passionate about writing clean, maintainable code to solve complex problems.",
+            "A Problem Solver who loves transforming sophisticated challenges into elegant digital solutions.",
+            "A Frontend Enthusiast focused on creating immersive, responsive, and beautiful user experiences."
+        ];
+        
+        let sentenceIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        // Start typing shortly after load
+        setTimeout(typeEffect, 400);
+
+        function typeEffect() {
+            const currentSentence = sentences[sentenceIndex];
+            
+            if (isDeleting) {
+                typedSentenceElement.textContent = currentSentence.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedSentenceElement.textContent = currentSentence.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            // Typing speed: faster when deleting, slower when typing
+            let typingSpeed = isDeleting ? 15 : 45;
+
+            if (!isDeleting && charIndex === currentSentence.length) {
+                typingSpeed = 3000; // Pause at end of sentence so user can read it
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                sentenceIndex = (sentenceIndex + 1) % sentences.length;
+                typingSpeed = 500; // Pause briefly before typing next sentence
+            }
+
+            setTimeout(typeEffect, typingSpeed);
+        }
+    });
+</script>
 {% endblock %}

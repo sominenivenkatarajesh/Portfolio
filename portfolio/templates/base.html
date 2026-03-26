@@ -25,6 +25,7 @@
             <a href="{% url 'home' %}" class="logo">SVR</a>
             <div class="nav-links" style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
                 <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'skills' %}">Skills</a>
                 <a href="{% url 'projects' %}">Projects</a>
                 <a href="{% url 'internships' %}">Internships</a>
                 <a href="{% url 'education' %}">Education</a>
@@ -54,7 +55,12 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2024 SVR. All Rights Reserved.</p>
+                <div class="footer-info" style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <p style="color: var(--text-main); font-weight: 500; font-size: 0.95rem; margin: 0;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary); margin-right: 8px;"></i>Thallapaka, Rajampeta, Kadapa, Andhra Pradesh
+                    </p>
+                    <p style="font-size: 0.85rem; margin: 0;">&copy; {% now "Y" %} SVR. All Rights Reserved.</p>
+                </div>
                 <div class="socials">
                     <a href="{{ github }}" target="_blank"><i class="fab fa-github"></i></a>
                     <a href="{{ linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>

@@ -1,0 +1,10 @@
+/* App.css — kept minimal, global styles are in index.css */
+
+.App {
+  min-height: 100vh;
+}
+
+/* Ensure 3D canvas doesn't intercept clicks */
+canvas {
+  pointer-events: none;
+}

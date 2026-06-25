@@ -1,7 +1,21 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Hero = ({ name, role, tagline }) => {
+const Hero = ({ name, role, tagline, roles = [] }) => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  
+  const cycleItems = roles.length > 0 
+    ? roles.map(r => typeof r === 'string' ? { title: r, tagline: tagline } : r) 
+    : [{ title: role, tagline: tagline }];
+
+  useEffect(() => {
+    if (cycleItems.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % cycleItems.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [cycleItems.length]);
+
   return (
     <section id="home" style={{
       minHeight: '100vh',
@@ -56,10 +70,23 @@ const Hero = ({ name, role, tagline }) => {
             marginBottom: '2rem'
           }}
         >
-          I am a <span style={{ color: 'var(--primary)' }}>{role}</span>
+          I am a{' '}
+          <span style={{ color: 'var(--primary)', display: 'inline-flex', position: 'relative' }}>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentTextIndex}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                {cycleItems[currentTextIndex]?.title}
+              </motion.span>
+            </AnimatePresence>
+          </span>
         </motion.h2>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -68,11 +95,23 @@ const Hero = ({ name, role, tagline }) => {
             color: 'var(--text-dim)',
             fontSize: '1.05rem',
             lineHeight: '1.75',
-            marginBottom: '3rem'
+            marginBottom: '3rem',
+            minHeight: '80px'
           }}
         >
-          {tagline}
-        </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={currentTextIndex}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              style={{ margin: 0 }}
+            >
+              {cycleItems[currentTextIndex]?.tagline}
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -11,6 +11,12 @@ app.use(express.json());
 const portfolioData = {
   name: "Somineni Venkata Rajesh",
   role: "Full Stack Developer",
+  roles: [
+    { title: "Full Stack Developer", tagline: "I build high-performance web applications with modern technologies and interactive user experiences." },
+    { title: "Java Developer", tagline: "I engineer robust and scalable enterprise backends using Java and object-oriented principles." },
+    { title: "MERN Stack Developer", tagline: "I craft dynamic, single-page applications using MongoDB, Express, React, and Node.js." },
+    { title: "Problem Solver", tagline: "I tackle complex algorithmic challenges and optimize system architectures for maximum efficiency." }
+  ],
   tagline: "I build high-performance web applications with modern technologies and interactive user experiences.",
   about: {
     bio: "I am a dedicated Full Stack Developer with a strong passion for building immersive digital experiences. I specialize in creating high-performance web applications that seamlessly blend cutting-edge backend architecture with stunning frontend visuals.",
@@ -256,5 +262,8 @@ app.post('/api/contact', async (req, res) => {
     res.status(500).json({ message: "Failed to send email." });
   }
 });
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => console.log(`🚀 Portfolio Engine engaged on port ${PORT}`));
+}
 
-app.listen(PORT, () => console.log(`🚀 Portfolio Engine engaged on port ${PORT}`));
+module.exports = app;

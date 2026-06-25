@@ -21,7 +21,7 @@ const Home = ({ data }) => {
 
   return (
     <div>
-      <Hero name={data.name} role={data.role} tagline={data.tagline} />
+      <Hero name={data.name} role={data.role} tagline={data.tagline} roles={data.roles || [data.role]} />
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 2rem' }}>
 

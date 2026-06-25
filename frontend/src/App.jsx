@@ -52,7 +52,7 @@ function App() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/data')
+    fetch('/api/data')
       .then(res => res.json())
       .then(json => setData(json))
       .catch(() => setError(true));

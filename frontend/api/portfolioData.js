@@ -1,4 +1,4 @@
-const portfolioData = {
+export const portfolioData = {
   name: "Somineni Venkata Rajesh",
   role: "Full Stack Developer",
   roles: [
@@ -184,7 +184,7 @@ const portfolioData = {
   }
 };
 
-function parseDate(dateStr) {
+export function parseDate(dateStr) {
   if (!dateStr) return new Date(0);
   if (dateStr.includes('-')) {
     let parts = dateStr.split('-');
@@ -202,5 +202,3 @@ function parseDate(dateStr) {
   }
   return new Date(0);
 }
-
-module.exports = { portfolioData, parseDate };

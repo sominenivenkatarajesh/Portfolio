@@ -1,7 +1,6 @@
-const { portfolioData, parseDate } = require('./portfolioData');
+import { portfolioData, parseDate } from './portfolioData.js';
 
-module.exports = (req, res) => {
-  // Add CORS headers so this works natively on Vercel without the express middleware
+export default function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   
@@ -25,4 +24,4 @@ module.exports = (req, res) => {
   }
 
   res.status(200).json(sortedData);
-};
+}

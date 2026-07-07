@@ -51,17 +51,23 @@ function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL || '';
+
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL || '';
     fetch(`${apiUrl}/api/data`)
-      .then(res => res.json())
+      .then(async res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        return res.json();
+      })
       .then(json => setData(json))
-      .catch(() => setError(true));
-  }, []);
+      .catch((e) => setError(e.message || "Unknown error"));
+  }, [apiUrl]);
 
   if (error) return (
-    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a192f', color: '#64ffda', fontFamily: 'monospace' }}>
-      Backend not reachable. Make sure the server is running on port 5000.
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a192f', color: '#64ffda', fontFamily: 'monospace', padding: '20px', textAlign: 'center' }}>
+      <p>Backend not reachable.</p>
+      <p style={{ color: '#ff6b6b', marginTop: '10px' }}>Error Details: {error}</p>
+      <p style={{ color: '#8892b0', marginTop: '10px', fontSize: '0.85rem' }}>Attempted to fetch from: {apiUrl || '(Relative Path)'}/api/data</p>
     </div>
   );
 

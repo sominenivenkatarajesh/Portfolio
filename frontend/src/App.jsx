@@ -52,7 +52,8 @@ function App() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch('/api/data')
+    const apiUrl = import.meta.env.VITE_API_URL || '';
+    fetch(`${apiUrl}/api/data`)
       .then(res => res.json())
       .then(json => setData(json))
       .catch(() => setError(true));

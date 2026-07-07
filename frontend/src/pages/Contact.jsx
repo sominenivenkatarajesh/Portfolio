@@ -10,7 +10,8 @@ const Contact = ({ data, standalone = true }) => {
     e.preventDefault();
     setStatus('Sending...');
     try {
-      const res = await fetch('/api/contact', {
+      const apiUrl = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

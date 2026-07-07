@@ -1,12 +1,12 @@
 const { portfolioData, parseDate } = require('./portfolioData');
 
 module.exports = (req, res) => {
-  // Add CORS headers so this works natively on Vercel without the express middleware
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.statusCode = 200;
+    return res.end();
   }
 
   const sortedData = JSON.parse(JSON.stringify(portfolioData));
@@ -24,5 +24,7 @@ module.exports = (req, res) => {
     sortedData.projects.sort((a, b) => b.id - a.id);
   }
 
-  res.status(200).json(sortedData);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(sortedData));
 };

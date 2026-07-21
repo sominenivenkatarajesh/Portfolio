@@ -81,6 +81,7 @@ const Layout = ({ children }) => {
           ))}
           <a
             href="/resume.pdf"
+            download="Somineni_Venkata_Rajesh_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="btn-primary"
@@ -121,6 +122,7 @@ const Layout = ({ children }) => {
           ))}
           <a
             href="/resume.pdf"
+            download="Somineni_Venkata_Rajesh_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="btn-primary"

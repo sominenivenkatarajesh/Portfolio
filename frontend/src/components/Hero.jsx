@@ -124,6 +124,7 @@ const Hero = ({ name, role, tagline, roles = [] }) => {
           </a>
           <a
             href="/resume.pdf"
+            download="Somineni_Venkata_Rajesh_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             style={{

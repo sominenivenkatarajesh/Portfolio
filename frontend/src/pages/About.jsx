@@ -10,7 +10,7 @@ const About = ({ data }) => {
     <PageContainer>
       <PageHeader title="About Me" subtitle="Who I am and what drives my passion for technology." />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 260px', gap: '4rem', alignItems: 'start', marginTop: '1rem' }}>
+      <div className="about-grid" style={{ marginTop: '1rem' }}>
         {/* Text content */}
         <div>
           <motion.p
@@ -40,17 +40,17 @@ const About = ({ data }) => {
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }}
             >
-              <h3 style={{ fontSize: '1rem', color: 'var(--text-bright)', marginBottom: '1.25rem', fontFamily: 'monospace' }}>
-                What I Do
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                {about.highlights.map((h, i) => (
-                  <div key={i} className="glass-card" style={{ padding: '1.5rem' }}>
-                    <div style={{ fontSize: '1.75rem', marginBottom: '0.75rem' }}>{h.icon}</div>
-                    <h4 style={{ fontSize: '0.9rem', color: 'var(--text-bright)', fontWeight: 600, marginBottom: '0.4rem' }}>{h.label}</h4>
-                    <p style={{ color: 'var(--text-dim)', fontFamily: 'monospace', fontSize: '0.78rem' }}>{h.detail}</p>
-                  </div>
-                ))}
+              <div style={{ marginTop: '2.5rem' }}>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: 'var(--text-bright)' }}>What I Do</h3>
+                <div className="grid-responsive">
+                  {about.highlights.map((h, i) => (
+                    <div key={i} className="glass-card" style={{ padding: '1.5rem' }}>
+                      <div style={{ fontSize: '1.75rem', marginBottom: '0.75rem' }}>{h.icon}</div>
+                      <h4 style={{ fontSize: '0.9rem', color: 'var(--text-bright)', fontWeight: 600, marginBottom: '0.4rem' }}>{h.label}</h4>
+                      <p style={{ color: 'var(--text-dim)', fontFamily: 'monospace', fontSize: '0.78rem' }}>{h.detail}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           )}

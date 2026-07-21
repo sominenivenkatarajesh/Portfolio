@@ -57,7 +57,7 @@ const Layout = ({ children }) => {
         </Link>
 
         {/* Desktop nav */}
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+        <div className="desktop-nav">
           {navLinks.map(link => (
             <Link
               key={link.path}
@@ -85,6 +85,47 @@ const Layout = ({ children }) => {
             rel="noreferrer"
             className="btn-primary"
             style={{ padding: '10px 18px', fontSize: '0.8rem' }}
+          >
+            Resume
+          </a>
+        </div>
+
+        {/* Mobile Nav Toggle */}
+        <button 
+          className={`mobile-nav-toggle ${menuOpen ? 'open' : ''}`} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* Mobile Menu */}
+        <div className={`mobile-nav-menu ${menuOpen ? 'open' : ''}`}>
+          {navLinks.map(link => (
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontFamily: "'Inter', monospace",
+                fontSize: '1.2rem',
+                textDecoration: 'none',
+                color: location.pathname === link.path ? 'var(--primary)' : 'var(--text-dim)',
+                transition: 'color 0.3s ease',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary"
+            style={{ marginTop: '1rem' }}
+            onClick={() => setMenuOpen(false)}
           >
             Resume
           </a>

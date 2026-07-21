@@ -29,7 +29,7 @@ const Loader = () => (
       letterSpacing: '-0.02em',
       marginBottom: '2rem'
     }}>
-      MM.
+      SVRN.
     </div>
     <div style={{ width: '180px', height: '1px', background: 'rgba(100, 255, 218, 0.1)', borderRadius: '10px', overflow: 'hidden' }}>
       <div style={{

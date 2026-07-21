@@ -28,7 +28,7 @@ const Home = ({ data }) => {
         {/* ── ABOUT ─────────────────────────────────────── */}
         <section id="about" style={{ padding: '6rem 0' }}>
           <SectionHeader num="01" title="About Me" />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: '4rem', alignItems: 'start' }}>
+          <div className="about-grid" style={{ alignItems: 'start' }}>
             <div>
               <motion.p {...fadeUp(0)} style={{ color: 'var(--text-dim)', fontSize: '1rem', lineHeight: '1.8', marginBottom: '1.25rem' }}>
                 {data.about.bio}
@@ -285,11 +285,7 @@ const Home = ({ data }) => {
                   onClick={() => setOpenProjectId(openProjectId === project.id ? null : project.id)}
                 >
                   {/* FRONT FACE */}
-                  <div className="card-face card-front" style={{
-                    display: 'grid',
-                    gridTemplateColumns: i % 2 === 0 ? '1fr 450px' : '450px 1fr',
-                    alignItems: 'stretch'
-                  }}>
+                  <div className={`card-face card-front project-card-grid ${i % 2 === 0 ? 'even' : 'odd'}`}>
                     {/* Text Content */}
                     <div style={{ 
                       padding: '3rem', 
@@ -336,7 +332,8 @@ const Home = ({ data }) => {
                     <div style={{
                       order: i % 2 === 0 ? 1 : 0,
                       position: 'relative',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      minHeight: '250px'
                     }}>
                       <div style={{
                         position: 'absolute',

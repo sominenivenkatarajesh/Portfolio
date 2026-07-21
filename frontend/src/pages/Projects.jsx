@@ -18,9 +18,8 @@ const Projects = ({ data }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1, duration: 0.5 }}
+            className={`project-page-card-grid ${i % 2 === 0 ? 'even' : 'odd'}`}
             style={{
-              display: 'grid',
-              gridTemplateColumns: i % 2 === 0 ? '1fr 360px' : '360px 1fr',
               gap: '3rem',
               alignItems: 'center',
               padding: '3.5rem 0',

@@ -43,7 +43,7 @@ const Contact = ({ data, standalone = true }) => {
   const contact = data?.contact;
 
   const form = (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginTop: '1rem' }}>
+    <div className="grid-responsive" style={{ marginTop: '1rem' }}>
       {/* Left — info */}
       <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
         <p style={{ color: 'var(--text-dim)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem' }}>

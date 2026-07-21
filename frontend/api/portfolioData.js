@@ -71,38 +71,8 @@ export const portfolioData = {
     },
     {
       id: 3,
-      title: "Employee Management System",
-      date: "Jan’ 24",
-      description: "A comprehensive enterprise system designed to streamline HR operations, track employee data, and manage organizational workflows efficiently.",
-      tech: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3"],
-      points: [
-        "Engineered a robust backend architecture using PHP and MySQL for secure data handling and employee record management.",
-        "Designed an intuitive, responsive dashboard for HR administrators to track attendance, leave requests, and performance metrics.",
-        "Implemented role-based access control to ensure strict data security and maintain proper organizational hierarchy."
-      ],
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-      github: "https://github.com/sominenivenkatarajesh/Employee-Management-System",
-      live: "https://employeesmanagementsystem.infinityfreeapp.com/index.php"
-    },
-    {
-      id: 4,
-      title: "Digital Health Record Management System (DHRMS)",
-      date: "Dec’ 23",
-      description: "A secure platform for managing digital health records, facilitating seamless access to patient history for healthcare providers.",
-      tech: ["JavaScript", "HTML5", "CSS3", "Database Architecture"],
-      points: [
-        "Developed a secure portal for healthcare professionals to access, update, and manage patient records instantaneously.",
-        "Ensured high data integrity and privacy through rigorous authentication mechanisms and modern encryption practices.",
-        "Designed a highly responsive and accessible user interface for seamless navigation across multiple devices."
-      ],
-      image: "https://images.unsplash.com/photo-1576091160550-2173ff9e5ee5?auto=format&fit=crop&q=80&w=800",
-      github: "https://github.com/sominenivenkatarajesh/DHRMS",
-      live: "#"
-    },
-    {
-      id: 5,
       title: "To-Do List Application",
-      date: "Nov’ 23",
+      date: "Jan’ 24",
       description: "A lightweight, interactive task management application designed to help users track daily activities and boost productivity.",
       tech: ["JavaScript", "HTML5", "CSS3", "Local Storage"],
       points: [
@@ -113,6 +83,21 @@ export const portfolioData = {
       image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=800",
       github: "https://github.com/sominenivenkatarajesh/to-do-list-app",
       live: "https://to-do-list-app-x3zd.onrender.com/login/?next=/"
+    },
+    {
+      id: 4,
+      title: "Employee Management System",
+      date: "Dec’ 23",
+      description: "A comprehensive enterprise system designed to streamline HR operations, track employee data, and manage organizational workflows efficiently.",
+      tech: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3"],
+      points: [
+        "Engineered a robust backend architecture using PHP and MySQL for secure data handling and employee record management.",
+        "Designed an intuitive, responsive dashboard for HR administrators to track attendance, leave requests, and performance metrics.",
+        "Implemented role-based access control to ensure strict data security and maintain proper organizational hierarchy."
+      ],
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+      github: "https://github.com/sominenivenkatarajesh/Employee-Management-System",
+      live: "https://employeesmanagementsystem.infinityfreeapp.com/index.php"
     }
   ],
   experience: [

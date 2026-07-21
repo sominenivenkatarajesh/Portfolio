@@ -171,7 +171,7 @@ export const portfolioData = {
     linkedin: "https://www.linkedin.com/in/somineni-venkat-rajesh",
     github: "https://GitHub.com/sominenivenkatarajesh",
     hackerrank: "https://www.hackerrank.com/sominenivenkatarajesh",
-    leetcode: "https://leetcode.com/sominenivenkatarajesh",
+    leetcode: "https://leetcode.com/u/DASornnjUk/",
     twitter: "#"
   }
 };

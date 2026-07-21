@@ -306,11 +306,6 @@ const Home = ({ data }) => {
                         <p style={{ fontFamily: 'monospace', color: 'var(--primary)', fontSize: '0.8rem', letterSpacing: '0.08em' }}>
                           Featured Project
                         </p>
-                        {project.date && (
-                          <span style={{ color: 'var(--text-dim)', fontFamily: 'monospace', fontSize: '0.85rem' }}>
-                            {project.date}
-                          </span>
-                        )}
                       </div>
                       <h3 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-bright)', marginBottom: '1.25rem' }}>
                         {project.title}

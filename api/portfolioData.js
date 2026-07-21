@@ -81,7 +81,7 @@ const portfolioData = {
         "Optimized DOM manipulation and event handling to ensure real-time UI updates without page reloads."
       ],
       image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=800",
-      github: "https://github.com/sominenivenkatarajesh/to-do-list-app",
+      github: "https://github.com/sominenivenkatarajesh/To-Do-List",
       live: "https://to-do-list-app-x3zd.onrender.com/login/?next=/"
     },
     {

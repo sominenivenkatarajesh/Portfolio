@@ -9,8 +9,8 @@ const portfolioData = {
   ],
   tagline: "I build high-performance web applications with modern technologies and interactive user experiences.",
   about: {
-    bio: "I am a dedicated Full Stack Developer with a strong passion for building immersive digital experiences. I specialize in creating high-performance web applications that seamlessly blend cutting-edge backend architecture with stunning frontend visuals.",
-    bio2: "I have a solid foundation in modern web technologies, cloud infrastructure, and interactive rendering. I am continuously exploring new tools and techniques to stay ahead of the curve in the ever-evolving tech landscape.",
+    bio: "I am a passionate and results-driven Full Stack Developer with a strong foundation in building scalable, immersive digital experiences. My expertise lies in designing high-performance web applications that seamlessly integrate robust backend architectures with elegant, user-centric frontend designs. I thrive on translating complex business requirements into intuitive software solutions.",
+    bio2: "Equipped with comprehensive knowledge of modern web technologies, cloud infrastructure, and secure database management, I have a proven track record of engineering full-stack platforms from the ground up. I am a continuous learner, constantly exploring innovative tools, modern frameworks, and best practices to stay ahead of the curve in the fast-paced tech landscape.",
     profileImage: "/profile.jpg",
     expertise: ["MERN Stack", "Django & Python", "Socket.IO", "Cloud Computing", "JavaScript", "PostgreSQL"],
     highlights: [
@@ -170,6 +170,8 @@ const portfolioData = {
     location: "Punjab, India",
     linkedin: "https://www.linkedin.com/in/somineni-venkat-rajesh",
     github: "https://GitHub.com/sominenivenkatarajesh",
+    hackerrank: "https://www.hackerrank.com/sominenivenkatarajesh",
+    leetcode: "https://leetcode.com/sominenivenkatarajesh",
     twitter: "#"
   }
 };

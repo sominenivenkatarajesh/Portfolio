@@ -26,6 +26,28 @@ const About = ({ data }) => {
             {about.bio2}
           </motion.p>
 
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.5 }}
+            style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.5rem' }}
+          >
+            <a href={data.contact.github} target="_blank" rel="noreferrer" className="btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem' }}>
+              GitHub ↗
+            </a>
+            <a href={data.contact.linkedin} target="_blank" rel="noreferrer" className="btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem', background: 'transparent', color: 'var(--primary)', border: '1px solid var(--primary)' }}>
+              LinkedIn ↗
+            </a>
+            {data.contact.hackerrank && (
+              <a href={data.contact.hackerrank} target="_blank" rel="noreferrer" className="btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem', background: 'transparent', color: 'var(--primary)', border: '1px solid var(--primary)' }}>
+                HackerRank ↗
+              </a>
+            )}
+            {data.contact.leetcode && (
+              <a href={data.contact.leetcode} target="_blank" rel="noreferrer" className="btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem', background: 'transparent', color: 'var(--primary)', border: '1px solid var(--primary)' }}>
+                LeetCode ↗
+              </a>
+            )}
+          </motion.div>
+
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
             <h3 style={{ fontSize: '1rem', color: 'var(--text-bright)', marginBottom: '1.25rem', fontFamily: 'monospace' }}>
               Key Expertise

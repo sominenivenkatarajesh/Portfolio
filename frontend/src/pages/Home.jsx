@@ -278,14 +278,22 @@ const Home = ({ data }) => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             {data.projects.slice(0, 3).map((project, i) => (
-              <div key={project.id} className="project-container">
+              <div key={project.id} className="project-container" style={{ marginBottom: '2rem' }}>
                 <motion.div 
                   {...fadeUp(i * 0.1)}
-                  className={`project-card-3d ${openProjectId === project.id ? 'is-open' : ''}`}
-                  onClick={() => setOpenProjectId(openProjectId === project.id ? null : project.id)}
+                  className="project-card"
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr',
+                    gap: '2rem',
+                    background: 'var(--card-bg)',
+                    border: '1px solid rgba(100, 255, 218, 0.1)',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    alignItems: 'stretch'
+                  }}
                 >
-                  {/* FRONT FACE */}
-                  <div className={`card-face card-front project-card-grid ${i % 2 === 0 ? 'even' : 'odd'}`}>
+                  <div className={`project-page-card-grid ${i % 2 === 0 ? 'even' : 'odd'}`}>
                     {/* Text Content */}
                     <div style={{ 
                       padding: '3rem', 
@@ -294,19 +302,48 @@ const Home = ({ data }) => {
                       flexDirection: 'column',
                       justifyContent: 'center'
                     }}>
-                      <p style={{ fontFamily: 'monospace', color: 'var(--primary)', fontSize: '0.8rem', marginBottom: '0.75rem', letterSpacing: '0.08em' }}>
-                        Featured Project
-                      </p>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                        <p style={{ fontFamily: 'monospace', color: 'var(--primary)', fontSize: '0.8rem', letterSpacing: '0.08em' }}>
+                          Featured Project
+                        </p>
+                        {project.date && (
+                          <span style={{ color: 'var(--text-dim)', fontFamily: 'monospace', fontSize: '0.85rem' }}>
+                            {project.date}
+                          </span>
+                        )}
+                      </div>
                       <h3 style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-bright)', marginBottom: '1.25rem' }}>
                         {project.title}
                       </h3>
                       <p style={{ color: 'var(--text-dim)', fontSize: '1rem', lineHeight: '1.75', marginBottom: '1.5rem' }}>
                         {project.description}
                       </p>
-                      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <p style={{ color: 'var(--primary)', fontSize: '0.85rem', fontFamily: 'monospace' }}>
-                          Click to flip 3D ↺
-                        </p>
+                      
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '1.5rem' }}>
+                        {project.tech.map(t => (
+                          <span key={t} className="tech-tag" style={{ background: 'transparent' }}>{t}</span>
+                        ))}
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                        {project.github && project.github !== "#" && (
+                          <a href={project.github} target="_blank" rel="noreferrer"
+                            style={{ color: 'var(--text-dim)', textDecoration: 'none', fontFamily: 'monospace', fontSize: '0.8rem', transition: 'color 0.3s' }}
+                            onMouseOver={e => e.currentTarget.style.color = 'var(--primary)'}
+                            onMouseOut={e => e.currentTarget.style.color = 'var(--text-dim)'}
+                          >
+                            GitHub ↗
+                          </a>
+                        )}
+                        {project.live && project.live !== "#" && (
+                          <a href={project.live} target="_blank" rel="noreferrer"
+                            style={{ color: 'var(--text-dim)', textDecoration: 'none', fontFamily: 'monospace', fontSize: '0.8rem', transition: 'color 0.3s' }}
+                            onMouseOver={e => e.currentTarget.style.color = 'var(--primary)'}
+                            onMouseOut={e => e.currentTarget.style.color = 'var(--text-dim)'}
+                          >
+                            Live Demo ↗
+                          </a>
+                        )}
                         <button 
                           onClick={(e) => {
                             e.stopPropagation();
@@ -320,7 +357,8 @@ const Home = ({ data }) => {
                             fontSize: '0.75rem',
                             padding: '4px 10px',
                             borderRadius: '4px',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            marginLeft: 'auto'
                           }}
                         >
                           View Details
@@ -339,7 +377,7 @@ const Home = ({ data }) => {
                         position: 'absolute',
                         inset: 0,
                         background: 'var(--primary)',
-                        opacity: 0.2,
+                        opacity: 0.1,
                         zIndex: 1,
                         transition: 'opacity 0.3s'
                       }} />
@@ -350,51 +388,12 @@ const Home = ({ data }) => {
                           width: '100%', 
                           height: '100%', 
                           objectFit: 'cover', 
-                          filter: 'grayscale(100%) contrast(1.1) brightness(0.7)',
+                          filter: 'grayscale(30%) contrast(1.1) brightness(0.8)',
                           transition: 'all 0.5s ease' 
                         }}
+                        onMouseOver={e => { e.currentTarget.style.filter = 'grayscale(0%) contrast(1) brightness(1)'; }}
+                        onMouseOut={e => { e.currentTarget.style.filter = 'grayscale(30%) contrast(1.1) brightness(0.8)'; }}
                       />
-                    </div>
-                  </div>
-
-                  {/* BACK FACE */}
-                  <div className="card-face card-back">
-                    <h3 style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-bright)', marginBottom: '0.5rem' }}>
-                      {project.title}
-                    </h3>
-                    <div style={{ width: '50px', height: '2px', background: 'var(--primary)', marginBottom: '2rem' }} />
-                    
-                    <ul className="project-points">
-                      {project.points && project.points.map((point, idx) => (
-                        <li key={idx}>{point}</li>
-                      ))}
-                    </ul>
-
-                    <div className="tech-stack-back">
-                      {project.tech.map(t => (
-                        <span key={t} className="tech-tag-3d">{t}</span>
-                      ))}
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '1.5rem', marginTop: '2.5rem' }}>
-                      {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: '0.8rem', padding: '0.6rem 1.2rem' }} onClick={e => e.stopPropagation()}>
-                          GitHub Code
-                        </a>
-                      )}
-                      <button 
-                        className="btn-primary" 
-                        style={{ fontSize: '0.8rem', padding: '0.6rem 1.2rem' }} 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedProject(project);
-                        }}
-                      >
-                        Full Details ↗
-                      </button>
-                      <button className="btn-primary" style={{ fontSize: '0.8rem', padding: '0.6rem 1.2rem', background: 'transparent', border: '1px solid var(--primary)' }}>
-                        Close X
-                      </button>
                     </div>
                   </div>
                 </motion.div>

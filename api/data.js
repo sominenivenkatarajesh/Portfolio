@@ -21,7 +21,7 @@ module.exports = (req, res) => {
     sortedData.achievements.sort((a, b) => parseDate(b.year) - parseDate(a.year));
   }
   if (sortedData.projects) {
-    sortedData.projects.sort((a, b) => b.id - a.id);
+    sortedData.projects.sort((a, b) => parseDate(b.date) - parseDate(a.date));
   }
 
   res.statusCode = 200;

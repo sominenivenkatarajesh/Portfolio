@@ -42,6 +42,7 @@ export const portfolioData = {
     {
       id: 1,
       title: "ChatApp",
+      date: "Mar’ 24",
       description: "A real-time full-stack chat application enabling secure one-to-one messaging with responsive and interactive user interfaces.",
       tech: ["MERN Stack", "Socket.IO", "YouTube API", "JavaScript", "HTML5", "CSS3"],
       points: [
@@ -56,6 +57,7 @@ export const portfolioData = {
     {
       id: 2,
       title: "Find Style",
+      date: "Feb’ 24",
       description: "Multi-vendor e-commerce platform featuring a dual-user ecosystem with personalized dashboards for storefront management.",
       tech: ["Django (Python)", "PostgreSQL", "HTML5", "CSS3", "JavaScript"],
       points: [
@@ -70,6 +72,7 @@ export const portfolioData = {
     {
       id: 3,
       title: "Employee Management System",
+      date: "Jan’ 24",
       description: "A comprehensive enterprise system designed to streamline HR operations, track employee data, and manage organizational workflows efficiently.",
       tech: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3"],
       points: [
@@ -84,6 +87,7 @@ export const portfolioData = {
     {
       id: 4,
       title: "Digital Health Record Management System (DHRMS)",
+      date: "Dec’ 23",
       description: "A secure platform for managing digital health records, facilitating seamless access to patient history for healthcare providers.",
       tech: ["JavaScript", "HTML5", "CSS3", "Database Architecture"],
       points: [
@@ -98,6 +102,7 @@ export const portfolioData = {
     {
       id: 5,
       title: "To-Do List Application",
+      date: "Nov’ 23",
       description: "A lightweight, interactive task management application designed to help users track daily activities and boost productivity.",
       tech: ["JavaScript", "HTML5", "CSS3", "Local Storage"],
       points: [

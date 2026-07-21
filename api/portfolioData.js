@@ -40,6 +40,21 @@ const portfolioData = {
   ],
   projects: [
     {
+      id: 5,
+      title: "Workspace Pro (Ongoing)",
+      date: "Present",
+      description: "A comprehensive, AI-powered workspace application designed to unify productivity tools, offering real-time AI assistance for writing, coding, image generation, and document analysis.",
+      tech: ["React 18", "TypeScript", "Node.js", "MongoDB", "Google Gemini API", "Tailwind CSS"],
+      points: [
+        "Architected and developed a full-stack AI SaaS platform delivering a unified workspace for AI-assisted writing, code generation, and document analysis.",
+        "Integrated Google Gemini API to power complex AI features, including context-aware chat, automated code generation, and intelligent document summarization.",
+        "Implemented a multi-tier subscription system with a scalable MongoDB schema and a secure authentication system featuring JWT-based authorization."
+      ],
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+      github: "#",
+      live: "#"
+    },
+    {
       id: 1,
       title: "ChatApp",
       date: "Mar’ 24",

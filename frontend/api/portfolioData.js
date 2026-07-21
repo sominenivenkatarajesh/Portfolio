@@ -168,7 +168,7 @@ export const portfolioData = {
     email: "venkatrajeshnaidu@gmail.com",
     phone: "+91 6302759116",
     location: "Punjab, India",
-    linkedin: "https://LinkedIn.com/sominenivenkatrajesh",
+    linkedin: "https://www.linkedin.com/in/somineni-venkat-rajesh",
     github: "https://GitHub.com/sominenivenkatarajesh",
     twitter: "#"
   }

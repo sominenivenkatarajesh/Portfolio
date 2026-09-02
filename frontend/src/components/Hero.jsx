@@ -3,8 +3,24 @@ import { FileTextIcon, GithubIcon, ExternalLinkIcon } from './Icons';
 
 const Hero = ({ name, title, valueProposition, resumeUrl, githubUrl }) => {
   return (
-    <section id="hero" className="section" style={{ paddingTop: '120px', paddingBottom: '90px' }}>
-      <div className="container">
+    <section id="hero" className="section" style={{ paddingTop: '120px', paddingBottom: '90px', position: 'relative' }}>
+      {/* Subtle contrast backdrop behind hero text */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '20%',
+          transform: 'translate(-50%, -50%)',
+          width: '700px',
+          height: '500px',
+          background: 'radial-gradient(ellipse at center, rgba(10, 14, 26, 0.85) 0%, rgba(10, 14, 26, 0.4) 50%, transparent 75%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '820px' }}>
           <div
             style={{

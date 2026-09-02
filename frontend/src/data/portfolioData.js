@@ -1,4 +1,4 @@
-const portfolioData = {
+export const defaultPortfolioData = {
   name: "Somineni Venkata Rajesh",
   title: "MERN Stack Developer | Cybersecurity Enthusiast",
   valueProposition: "Building resilient, high-performance web applications and secure backend systems with a focus on scalable architecture and clean code.",
@@ -90,24 +90,3 @@ const portfolioData = {
     location: "India"
   }
 };
-
-function parseDate(dateStr) {
-  if (!dateStr) return new Date(0);
-  if (dateStr.includes('–') || dateStr.includes('-')) {
-    let parts = dateStr.split(/[–-]/);
-    dateStr = parts[1].trim();
-    if (dateStr.toLowerCase() === 'present') return new Date();
-  }
-  if (/^\d{4}$/.test(dateStr)) return new Date(dateStr, 0, 1);
-  let match = dateStr.match(/([a-zA-Z]+)[’']?\s*(\d+)/);
-  if (match) {
-    let year = parseInt(match[2], 10);
-    year = year < 100 ? 2000 + year : year;
-    const monthMap = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
-    let month = monthMap[match[1].substring(0,3).toLowerCase()];
-    if (month !== undefined) return new Date(year, month, 1);
-  }
-  return new Date(0);
-}
-
-module.exports = { portfolioData, parseDate };

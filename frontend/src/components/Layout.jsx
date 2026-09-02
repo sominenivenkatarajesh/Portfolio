@@ -1,159 +1,122 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-
-const navLinks = [
-  { label: 'About', path: '/about', num: '01' },
-  { label: 'Skills', path: '/skills', num: '02' },
-  { label: 'Projects', path: '/projects', num: '03' },
-  { label: 'Certifications', path: '/certifications', num: '04' },
-  { label: 'Achievements', path: '/achievements', num: '05' },
-  { label: 'Contact', path: '/contact', num: '06' },
-];
+import { MenuIcon, CloseIcon, FileTextIcon } from './Icons';
 
 const Layout = ({ children }) => {
-  const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handler);
-    return () => window.removeEventListener('scroll', handler);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setMenuOpen(false);
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+  const navItems = [
+    { label: 'About', href: '#about' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Certifications', href: '#certifications' },
+    { label: 'Contact', href: '#contact' },
+  ];
 
   return (
-    <div style={{ minHeight: '100vh' }}>
-      {/* Navbar */}
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        width: '100%',
-        padding: scrolled ? '1rem 2.5rem' : '1.5rem 2.5rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        zIndex: 1000,
-        background: scrolled ? 'rgba(10, 25, 47, 0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(100, 255, 218, 0.08)' : 'none',
-        transition: 'all 0.3s ease',
-      }}>
-        {/* Logo */}
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <div style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontWeight: 800,
-            fontSize: '1.5rem',
-            color: 'var(--primary)',
-            letterSpacing: '-0.02em'
-          }}>
-            SVR<span style={{ color: 'var(--text-dim)' }}>.</span>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Top Navbar */}
+      <nav
+        className="navbar"
+        style={{
+          backgroundColor: scrolled ? 'rgba(10, 14, 26, 0.95)' : 'rgba(10, 14, 26, 0.8)',
+          borderBottomColor: scrolled ? 'var(--border)' : 'transparent',
+        }}
+      >
+        <div className="container">
+          <div className="navbar-content">
+            {/* Logo */}
+            <a href="#hero" className="navbar-logo">
+              SVR<span>.</span>
+            </a>
+
+            {/* Desktop Navigation Links */}
+            <div className="nav-links">
+              {navItems.map((item) => (
+                <a key={item.label} href={item.href} className="nav-item">
+                  {item.label}
+                </a>
+              ))}
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Somineni_Venkata_Rajesh_Resume.pdf"
+                className="btn-outline btn-sm"
+              >
+                <FileTextIcon size={15} />
+                Resume
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="mobile-nav-btn"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation"
+            >
+              {mobileMenuOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
+            </button>
           </div>
-        </Link>
-
-        {/* Desktop nav */}
-        <div className="desktop-nav">
-          {navLinks.map(link => (
-            <Link
-              key={link.path}
-              to={link.path}
-              style={{
-                fontFamily: "'Inter', monospace",
-                fontSize: '0.82rem',
-                textDecoration: 'none',
-                color: location.pathname === link.path ? 'var(--primary)' : 'var(--text-dim)',
-                transition: 'color 0.3s ease',
-                letterSpacing: '0.02em'
-              }}
-              onMouseOver={e => e.currentTarget.style.color = 'var(--primary)'}
-              onMouseOut={e => {
-                if (location.pathname !== link.path)
-                  e.currentTarget.style.color = 'var(--text-dim)';
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href="/resume.pdf"
-            download="Somineni_Venkata_Rajesh_Resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary"
-            style={{ padding: '10px 18px', fontSize: '0.8rem' }}
-          >
-            Resume
-          </a>
         </div>
 
-        {/* Mobile Nav Toggle */}
-        <button 
-          className={`mobile-nav-toggle ${menuOpen ? 'open' : ''}`} 
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle Menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        {/* Mobile Menu */}
-        <div className={`mobile-nav-menu ${menuOpen ? 'open' : ''}`}>
-          {navLinks.map(link => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                fontFamily: "'Inter', monospace",
-                fontSize: '1.2rem',
-                textDecoration: 'none',
-                color: location.pathname === link.path ? 'var(--primary)' : 'var(--text-dim)',
-                transition: 'color 0.3s ease',
-              }}
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="mobile-menu open">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="nav-item"
+                style={{ fontSize: '1rem', padding: '8px 0' }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Somineni_Venkata_Rajesh_Resume.pdf"
+              className="btn-primary btn-sm"
+              style={{ marginTop: '8px' }}
+              onClick={() => setMobileMenuOpen(false)}
             >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href="/resume.pdf"
-            download="Somineni_Venkata_Rajesh_Resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary"
-            style={{ marginTop: '1rem' }}
-            onClick={() => setMenuOpen(false)}
-          >
-            Resume
-          </a>
-        </div>
+              <FileTextIcon size={15} />
+              Resume PDF
+            </a>
+          </div>
+        )}
       </nav>
 
-      {/* Page content */}
-      <main style={{ paddingTop: '80px' }}>
+      {/* Main Page Content */}
+      <main style={{ flex: 1 }}>
         {children}
       </main>
 
       {/* Footer */}
-      <footer style={{
-        padding: '2rem',
-        textAlign: 'center',
-        borderTop: '1px solid rgba(100, 255, 218, 0.08)',
-      }}>
-        <p style={{
-          fontFamily: "'Inter', monospace",
-          fontSize: '0.8rem',
-          color: 'var(--text-dim)'
-        }}>
-          Built with ❤️ by{' '}
-          <span style={{ color: 'var(--primary)' }}>Somineni Venkata Rajesh</span>
-          {' '}· React + Three.js
-        </p>
+      <footer
+        style={{
+          borderTop: '1px solid var(--border)',
+          padding: '36px 0',
+          backgroundColor: 'var(--bg-primary)',
+          textAlign: 'center',
+        }}
+      >
+        <div className="container">
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+            © {new Date().getFullYear()} Somineni Venkata Rajesh · Built with React & Node.js
+          </p>
+        </div>
       </footer>
     </div>
   );
